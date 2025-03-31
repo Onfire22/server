@@ -2,12 +2,19 @@ import express from 'express';
 import http from 'http';
 import { WebSocketServer } from 'ws';
 import webpush from 'web-push';
+import cors from 'cors';
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
+const corsOptions = {
+	origin: 'https://onfire22.github.io',
+	methods: ['GET', 'POST'],
+	allowedHeaders: ['Content-Type'],
+};
 
 app.use(express.json());
+app.use(cors(corsOptions));
 
 const users = {};
 const subscriptions = {};
@@ -73,6 +80,6 @@ wss.on('connection', (ws) => {
 	});
 });
 
-server.listen(3001, () => {
+server.listen(3000, () => {
 	console.log('Server is running on port 3000');
 });
