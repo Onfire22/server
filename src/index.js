@@ -57,8 +57,13 @@ wss.on('connection', (ws) => {
 						body: data.content,
 					});
 					
+					const options = {
+						TTL: 0,
+						urgency: 'high',
+					};
+					
 					try {
-						await webpush.sendNotification(subscriptions[data.to], payload);
+						await webpush.sendNotification(subscriptions[data.to], payload, options);
 						console.log(`Push-уведомление отправлено ${data.to}`);
 					} catch (error) {
 						console.error('Ошибка отправки push:', error);
