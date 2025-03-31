@@ -55,6 +55,10 @@ wss.on('connection', (ws) => {
 					const payload = JSON.stringify({
 						title: `Новое сообщение от ${ws.username}`,
 						body: data.content,
+						requireInteraction: true,
+						actions: [
+							{ action: "open", title: "Открыть" }
+						],
 					});
 					
 					const options = {
